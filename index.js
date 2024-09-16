@@ -1,18 +1,20 @@
-let http = require("http");
-let url=require("url")
+let express = require('express');
+let cors =require("cors")
+let app = express();
+app.use(express.json())
+app.use(cors())
 
-let server = http.createServer((req, res) => {
-    let parseUrl=url.parse(req.url,true)
-    console.log(req)
+app.get('/',(req,res)=>
+{res.send("Welcome")})
 
-    if (parseUrl.pathname="/" && req.method=="POST"){
-        res.end("server working");
-    }
-    if(req.url=="/about-us"){
-        res.end("About Us")
-    }
-    res.end("Welcome")
- 
-});
+app.post('/post',(req,res)=>{
+    console.log(req.body)
+res.send("Post method API")
+})
 
-server.listen("8101")
+app.get('/get',(req,res)=>{
+    res.send("Get method API")
+})
+
+
+app.listen(8101);
